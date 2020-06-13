@@ -13,7 +13,6 @@ const businessCard = props => {
         `}
       </style>
       <Card className="mx-auto">
-        <Card.Img />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>

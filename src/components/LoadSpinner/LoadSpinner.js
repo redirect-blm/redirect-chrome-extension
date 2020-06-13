@@ -3,15 +3,6 @@ import Spinner from 'react-bootstrap/Spinner';
 import Axios from 'axios';
 
 const loadSpinner = () => {
-  useEffect(() => {
-    Axios.get('https://type.fit/api/quotes')
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        console.log(data);
-      });
-  }, []);
   return (
     <div className="justify-content-center text-center">
       <Spinner animation="border" role="status" className="p-3">
