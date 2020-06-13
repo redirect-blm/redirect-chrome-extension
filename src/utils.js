@@ -2,17 +2,21 @@ class Scraper {
     constructor(document) {
         this.document = document
     }
+    // get the page title, or return home if the title corresponds to the home page
     get page() {
         const title = this.document.getElementsByTagName('title')[0].innerText.replace(/Amazon.com: /, '')
         return /Online Shopping for/.test(title) ? 'Home' : title
     }
+    // get the category selected in the dropdown selector on the home page
     get category() {
         const dropDown = document.getElementById('searchDropdownBox')
         if (!dropDown) return null
         const options = dropDown.getElementsByTagName('option');
         const selectedIndex = dropDown.selectedIndex;
+        // defaults to 0, so returns false if category is all
         return !!selectedIndex && options[selectedIndex].innerText
     }
+    // get a list of the brands on the page
     get brands() {
         const { document } = this;
       // some pages have a list of brands in a descriptive div
@@ -30,7 +34,7 @@ class Scraper {
         if (anchorBrandList) return anchorBrandList;
         return null
     }
-    // use this to get the user's search term
+    // use this to get the user's search term typed into the input box
     get searchTerm() {
         const { document } = this;
         const input = document.getElementById('twotabsearchtextbox')
