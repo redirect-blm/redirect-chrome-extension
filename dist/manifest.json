@@ -9,7 +9,6 @@
     "128": "images/redirect_128x128.png"
   },
   "permissions": [
-    "storage",
     "declarativeContent",
     "activeTab"
   ],
@@ -20,7 +19,7 @@
     "persistent": false
   },
   "page_action": {
-    "default_popup": "popup.html",
+    "default_popup": "index.html",
     "default_title": "Redirect Chrome Extension. Click to view CSR data for this brand.",
     "default_icon": {
       "16": "images/redirect_16x16.png",
