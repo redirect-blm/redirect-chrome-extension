@@ -7,3 +7,11 @@
 3. Matt Rose
 4. Solomon Manyaga
 5. Jennifer Gong
+
+Setup Instructions
+`npm i` to install packages
+`npm run build-watch` to build into the dist folder. Changes you make will be applied on save
+`npm run lint` to lint your code based on eslint config
+`npm run compress-<mac|windows>` to compress the extension folder into extension.zip
+
+* No serve script. Just open dist/index.html in your preferred web browser to view the default sidebar page
