@@ -48,11 +48,14 @@ const businessList = () => {
         );
       })
     );
+
   return (
-    <div className="text-center">
-      <h4>Black-Owned Alternatives</h4>
-      {lst}
-    </div>
+    <>
+      <div className="text-center">
+        <h4>Black-Owned Alternatives</h4>
+        {lst}
+      </div>
+    </>
   );
 };
 
