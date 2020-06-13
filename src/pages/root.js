@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from '../components/Header/Header';
 import BusinessList from '../components/BusinessList/BusinessList';
 import EthicsCard from '../components/EthicsCard/EthicsCard';
-import classes from './root.module.css';
+import './root.module.css';
 
 export default class Root extends Component {
   constructor() {
@@ -10,7 +10,7 @@ export default class Root extends Component {
   }
   render() {
     return (
-      <div className={classes.root}>
+      <div>
         <Header />
         <EthicsCard />
         <BusinessList />
