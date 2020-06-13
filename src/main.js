@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoadSpinner from './components/LoadSpinner/LoadSpinner';
+import Root from './pages/root';
 
-ReactDOM.render(<LoadSpinner />, document.getElementById('main'));
+ReactDOM.render(
+  <Root />,
+  document.getElementById('main')
+);
