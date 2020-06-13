@@ -1,0 +1,61 @@
+{
+  "name": "redirect-chrome-extension",
+  "version": "0.0.1",
+  "description": "1. Charlotte Real\r 2. Nicolas Ries\r 3. Matt Rose\r 4. Solomon Manyaga\r 5. Jennifer Gong",
+  "main": "background.js",
+  "scripts": {
+    "build-watch": "webpack -w",
+    "build": "webpack --mode='production'",
+    "lint": "eslint ./src",
+    "lint-fix": "prettier \"{src}/**/*.js\"",
+    "compress-windows": "tar -cvzf extension.zip extension",
+    "compress-mac": "zip -r extension.zip extension"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redirect-blm/redirect-chrome-extension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/redirect-blm/redirect-chrome-extension/issues"
+  },
+  "homepage": "https://github.com/redirect-blm/redirect-chrome-extension#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "nodemon": "^2.0.2",
+    "prettier": "1.19.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.0",
+    "react": "^16.13.0",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-dom": "^16.13.0",
+    "react-redux": "^5.0.7",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.2.0",
+    "webpack": "^4.42.0"
+  }
+}
