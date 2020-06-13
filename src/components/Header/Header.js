@@ -4,7 +4,9 @@ export default function Header() {
   return (
     <header>
       {/* <img alt="Redire&cent;" /> */}
-      <h2>Stay Informed</h2>
+      <h2>
+        <strong>Redirect</strong>
+      </h2>
     </header>
   );
 }

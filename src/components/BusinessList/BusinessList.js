@@ -50,7 +50,7 @@ const businessList = () => {
     );
   return (
     <div className="text-center">
-      <h3>Black-Owned Alternatives</h3>
+      <h4>Black-Owned Alternatives</h4>
       {lst}
     </div>
   );
