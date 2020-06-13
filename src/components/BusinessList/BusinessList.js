@@ -9,27 +9,30 @@ class BusinessList extends React.Component {
     this.state = {
       businesses: [],
       error: null
-    }
-    this.lst = this.lst.bind(this)
+    };
+    this.lst = this.lst.bind(this);
   }
   componentDidMount() {
     const component = this;
     Axios({
       method: 'get',
       withCredentials: true,
-      baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getmany/category',
+      baseUrl:
+        'https://redirect-blm.herokuapp.com/api/business/getmany/category',
       params: {
         category: 'All'
       }
-    }).then(({ data }) => {
-      component.setState({ businesses: data })
-    }).catch(error => {
-      component.setState({ error: `Error getting businesses: ${error}` });
     })
+      .then(({ data }) => {
+        component.setState({ businesses: data });
+      })
+      .catch(error => {
+        component.setState({ error: `Error getting businesses: ${error}` });
+      });
   }
   lst() {
     const { businesses, error } = this.state;
-    if (error) return <div>{error}</div>
+    if (error) return <div>{error}</div>;
     return businesses.length === 0 ? (
       <Spinner />
     ) : (
@@ -54,7 +57,6 @@ class BusinessList extends React.Component {
       </div>
     );
   }
-  
-};
+}
 
 export default BusinessList;
