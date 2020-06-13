@@ -1,4 +1,10 @@
-.root {
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+
+body {
+  /* font-family: 'Questrial', sans-serif; */
+  font-family: 'Lato', sans-serif;
+  /* font-family: 'Red Hat Text', sans-serif; */
   max-width: 300px;
-  max-height: 100%;
 }

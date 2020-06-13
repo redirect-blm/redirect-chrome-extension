@@ -16,7 +16,7 @@ export default function EthicsCard() {
   };
 
   return (
-    <>
+    <div className="text-center">
       <h4>{temp.title}'s Ethics</h4>
       <Card className="mt-3 mb-3">
         <Card.Body>
@@ -24,6 +24,6 @@ export default function EthicsCard() {
           <Card.Text>{temp.description}</Card.Text>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 }
