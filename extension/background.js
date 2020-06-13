@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 // Kept this code for reference, although I don't think we need storage.
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.sync.set({ color: "#3aa757" }, function () {
+  chrome.storage.sync.set({ color: '#3aa757' }, function () {
     console.log(`The color is green.`);
   });
 
@@ -12,7 +12,7 @@ chrome.runtime.onInstalled.addListener(function () {
       {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostContains: "amazon.com" },
+            pageUrl: { hostContains: 'amazon.com' },
           }),
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()],
