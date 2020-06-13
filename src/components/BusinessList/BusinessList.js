@@ -14,11 +14,12 @@ class BusinessList extends React.Component {
   }
   componentDidMount() {
     const component = this;
+    //TODO: use Chrome api to get the document of the amazon window
     const category = Scraper.category(window.document);
     Axios({
       method: 'get',
       withCredentials: true,
-      baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getone/category',
+      baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getmany/category',
       params: {
         category
       }
