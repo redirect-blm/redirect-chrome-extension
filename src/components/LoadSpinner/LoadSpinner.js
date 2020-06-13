@@ -1,10 +1,11 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image';
 import Spinner from 'react-bootstrap/Spinner';
+//import Logo from '../../assets/logo.png';
 
 const loadSpinner = () => (
   <>
-    <Image src="../assets/logo.png" roundedCircle />
+    <Image src="../../assets/logo.png" roundedCircle />
     <Spinner animation="border" role="status">
       <span className="sr-only">Loading diverse choices...</span>
     </Spinner>
