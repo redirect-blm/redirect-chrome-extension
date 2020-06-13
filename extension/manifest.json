@@ -9,7 +9,6 @@
     "128": "images/redirect_128x128.png"
   },
   "permissions": [
-    "storage",
     "declarativeContent",
     "activeTab"
   ],
