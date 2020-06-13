@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 const businessCard = props => (
-  <Card style={{ width: '18rem' }} className="mx-auto">
+  <Card style={{ width: '18rem' }} className="mx-auto mt-3 mb-3">
     <Card.Img />
     <Card.Body>
       <Card.Title>{props.title}</Card.Title>
