@@ -52,7 +52,7 @@ class BusinessList extends React.Component {
     return (
       <div className="text-center">
         <h4>Black-Owned Alternatives</h4>
-        {lst}
+        {lst()}
       </div>
     );
   }
