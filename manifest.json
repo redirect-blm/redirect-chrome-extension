@@ -1,11 +1,33 @@
 {
-  "name": "Redire&cent;t",
+  "name": "Redire¢t",
   "version": "1.0",
-  "description": "Vote with your wallet with Redire¢t, a Chrome extension for social change. Support Black-owned businesses and stop supporting those doing harm.",
-  "permissions": ["storage"],
+  "description": "Vote with your wallet. Support Black-owned businesses and stop supporting those doing harm.",
+  "icons": {
+    "16": "images/redirect_16x16.png",
+    "32": "images/redirect_32x32.png",
+    "48": "images/redirect_48x48.png",
+    "128": "images/redirect_128x128.png"
+  },
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "activeTab"
+  ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_title": "Redirect Chrome Extension. Click to view CSR data for this brand.",
+    "default_icon": {
+      "16": "images/redirect_16x16.png",
+      "32": "images/redirect_32x32.png",
+      "48": "images/redirect_48x48.png",
+      "128": "images/redirect_128x128.png"
+    }
   },
   "manifest_version": 2
 }
