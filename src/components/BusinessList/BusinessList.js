@@ -1,40 +1,38 @@
-import React, { useState, useEffect } from 'react';
-// import Axios from 'axios';
+import React from 'react';
+import Axios from 'axios';
 import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
+import { Scraper } from '../../utils';
 
-const businessList = () => {
-  const [businesses, setBusinesses] = useState([]);
-
-  useEffect(() => {
-    // TODO: implement something like this eventually
-    // Axios.get(
-    //   'https://redirect-blm.herokuapp.com/api/business/getBusinesses'
-    // ).then(res => {
-    //   setBusinesses(res.data);
-    // });
-    var temp = [
-      {
-        title: 'Hope for Flowers',
-        description: 'sustainable clothing for women',
-        website: 'https://hopeforflowers.com/'
-      },
-      {
-        title: 'Fubu',
-        description: 'hip hop apparel',
-        website: 'https://fubu.com/'
-      },
-      {
-        title: 'Hanifa',
-        description: 'apparel for women',
-        website: 'https://hanifa.co/'
+class BusinessList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      lst: [],
+      error: null
+    }
+  }
+  componentDidMount() {
+    const component = this;
+    //TODO: use Chrome api to get the document of the amazon window
+    const category = Scraper.category(window.document);
+    Axios({
+      method: 'get',
+      withCredentials: true,
+      baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getmany/category',
+      params: {
+        category
       }
-    ];
-    setBusinesses(temp);
-  }, []);
-
-  let lst =
-    businesses.length === 0 ? (
+    }).then(({ data }) => {
+      component.setState({ lst: data })
+    }).catch(error => {
+      component.setState({ error });
+    })
+  }
+  lst() {
+    const { businesses, error } = this;
+    if (error) return <div>{error}</div>
+    return businesses.length === 0 ? (
       <Spinner />
     ) : (
       businesses.map(child => {
@@ -48,15 +46,16 @@ const businessList = () => {
         );
       })
     );
-
-  return (
-    <>
+  }
+  render() {
+    const { lst } = this.state;
+    return (
       <div className="text-center">
         <h4>Black-Owned Alternatives</h4>
-        {lst}
+        {lst()}
       </div>
-    </>
-  );
+    );
+  }
 };
 
-export default businessList;
+export default BusinessList;
