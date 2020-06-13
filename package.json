@@ -7,7 +7,7 @@
     "build-watch": "webpack -w",
     "build": "webpack --mode='production'",
     "lint": "eslint ./src",
-    "lint:fix": "./node_modules/.bin/eslint ./ --ignore-path .gitignore --fix"
+    "lint-fix": "prettier \"{src}/**/*.js\""
   },
   "repository": {
     "type": "git",
