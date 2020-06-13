@@ -1,0 +1,11 @@
+{
+  "name": "Redire&cent;t",
+  "version": "1.0",
+  "description": "Vote with your wallet with Redire¢t, a Chrome extension for social change. Support Black-owned businesses and stop supporting those doing harm.",
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "manifest_version": 2
+}
