@@ -48,6 +48,7 @@ class BusinessList extends React.Component {
     );
   }
   render() {
+    const { lst } = this;
     return (
       <div className="text-center">
         <h4>Black-Owned Alternatives</h4>
