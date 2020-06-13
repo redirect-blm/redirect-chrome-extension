@@ -2,7 +2,6 @@ import React from 'react';
 import Axios from 'axios';
 import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
-import { Scraper } from '../../utils';
 
 class BusinessList extends React.Component {
   constructor() {
@@ -14,13 +13,12 @@ class BusinessList extends React.Component {
   }
   componentDidMount() {
     const component = this;
-    const category = Scraper.category(window.document);
     Axios({
       method: 'get',
       withCredentials: true,
       baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getone/category',
       params: {
-        category
+        category: 'All'
       }
     }).then(({ data }) => {
       component.setState({ lst: data })
