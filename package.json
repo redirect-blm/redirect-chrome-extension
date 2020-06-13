@@ -7,7 +7,9 @@
     "build-watch": "webpack -w",
     "build": "webpack --mode='production'",
     "lint": "eslint ./src",
-    "lint-fix": "prettier \"{src}/**/*.js\""
+    "lint-fix": "prettier \"{src}/**/*.js\"",
+    "compress-windows": "tar -cvzf extension.zip extension",
+    "compress-mac": "zip -r extension.zip extension"
   },
   "repository": {
     "type": "git",
