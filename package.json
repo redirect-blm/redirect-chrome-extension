@@ -46,6 +46,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "bcrypt": "^4.0.0",
+    "css-loader": "^3.6.0",
+    "file-loader": "^6.0.0",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.13.0",
@@ -56,6 +58,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
+    "style-loader": "^1.2.1",
     "webpack": "^4.42.0"
   }
 }

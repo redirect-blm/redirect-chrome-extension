@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header/Header';
-import LoadSpinner from '../components/LoadSpinner/LoadSpinner'
+import BusinessList from '../components/BusinessList/BusinessList';
+import classes from './root.module.css';
 
 export default class Root extends Component {
   constructor() {
@@ -8,9 +9,9 @@ export default class Root extends Component {
   }
   render() {
     return (
-      <div>
+      <div className={classes.root}>
         <Header />
-        <LoadSpinner />
+        <BusinessList />
       </div>
     );
   }
