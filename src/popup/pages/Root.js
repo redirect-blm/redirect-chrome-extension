@@ -12,10 +12,8 @@ class Root extends Component {
     super(props);
   }
   render() {
-    const { amazonDOM } = this.props;
     return (
       <div>
-        <div>amazon dom = {JSON.stringify(amazonDOM)}</div>
         <Header />
         <EthicsCard />
         <BusinessList />

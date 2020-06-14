@@ -1,4 +1,4 @@
-// THIS IS NOT BEING USED AS OF 06/14/2020
+// THIS IS NOT BEING USED AS OF 06/14/2020 See file gulpfile.babel.js
 const path = require('path');
 
 module.exports = {

@@ -6,11 +6,12 @@ class Root extends Component {
     super(props);
   }
 
+  // on moount dispatch the stringified dom
   componentDidMount() {
       const { document } = window
-      this.props.dispatch({
+      this.props.sendDOM({
         type: 'SEND_DOM',
-        data: document
+        data: JSON.stringify(document)
     });
   }
 
@@ -26,4 +27,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Root);
+const mapDispatch = dispatch => {
+    return {
+      sendDOM: ({ type, data }) => dispatch({ type, data })
+    };
+};
+
+export default connect(mapStateToProps, mapDispatch)(Root);
