@@ -1,17 +1,39 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import { Scraper } from '../utils';
+const scraper = new Scraper(window.document);
 
 class Root extends Component {
   constructor(props) {
     super(props);
+    this.category = this.category.bind(this);
+    this.brands = this.brands.bind(this); 
+    this.searchTerm = this.searchTerm.bind(this);
+    this.page = this.page.bind(this);
+}
+  category() {
+    return scraper.category || 'All'
   }
-
-  // on moount dispatch the stringified dom
+  brands() {
+      return scraper.brands
+  }
+  searchTerm() {
+      return scraper.searchTerm
+  }
+  page() {
+      return scraper.page;
+  }
+  // on mount dispatch the stringified dom
   componentDidMount() {
-      const { document } = window
+      const category = this.category();
+      const brands = this.brands();
+      const searchTerm = this.searchTerm();
+      const page = this.page();
+      const data = { category, brands, searchTerm, page }
+      console.log('data = ', data);
       this.props.sendDOM({
-        type: 'SEND_DOM',
-        data: JSON.stringify(document)
+        type: 'SEND_DOM_CONTENT',
+        data
     });
   }
 
@@ -23,7 +45,7 @@ class Root extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    amazonDOM: state.amazonDOM
+    category: state.category
   };
 };
 

@@ -1,5 +1,4 @@
-'use strict';
-'use strict';
+'user strict';
 const { resolve } = require('path');
 
 module.exports = {

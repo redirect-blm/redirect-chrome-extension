@@ -4,10 +4,9 @@ export default (state = {}, action) => {
     console.log('action type = ', action.type)
     console.log('action data = ', action.data)
     switch (action.type) {
-      case 'SEND_DOM':
-        return { amazonDOM: action.data };
+      case 'SEND_DOM_CONTENT':
+        return action.data;
       default:
         return state;
     }
   };
-  

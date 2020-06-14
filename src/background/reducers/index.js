@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import amazonDOM from './amazonDOM';
+import domContent from './domContent';
 
 export default combineReducers({
-  amazonDOM
+    domContent
 });

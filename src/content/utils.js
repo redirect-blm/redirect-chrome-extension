@@ -22,7 +22,7 @@ class Scraper {
       // some pages have a list of brands in a descriptive div
       // the brand div contains a UL and each list item has an id equal to something like p_89/Nike (p_###/<productname>)
         const easyBrandItems = !!document.getElementById('brandsRefinements') && document.getElementById('brandsRefinements').getElementsByTagName('li')
-        if (easyBrandItems) return [...brandItems].map(({ innerText }) => innerText.replace(/\w_\d.\//,""))
+        if (easyBrandItems) return [...easyBrandItems].map(({ innerText }) => innerText.replace(/\w_\d.\//,""))
       // some pages have a a list of brands under a div with no id, where each brand is in an LI
       // the brand name is contained in the aria-label property of the li element
         const ariaLabelBrandItems = [...document.getElementsByTagName('li')].filter(_l => _l.ariaLabel)
@@ -42,6 +42,6 @@ class Scraper {
     }
 }
 
-export default {
+module.exports = {
     Scraper
 }

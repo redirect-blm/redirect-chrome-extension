@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import Header from '../components/Header/Header';
 import BusinessList from '../components/BusinessList/BusinessList';
 import EthicsCard from '../components/EthicsCard/EthicsCard';
-
 import './root.module.css';
 
 class Root extends Component {
@@ -12,11 +11,12 @@ class Root extends Component {
     super(props);
   }
   render() {
+    const { domContent } = this.props; 
     return (
       <div>
         <Header />
         <EthicsCard />
-        <BusinessList />
+        <BusinessList domContent={domContent} />
       </div>
     );
   }
@@ -24,7 +24,7 @@ class Root extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    amazonDOM: state.amazonDOM
+    domContent: state.domContent
   };
 };
 
