@@ -1,12 +1,15 @@
-'use strict';
-'use strict';
+'user strict';
 const { resolve } = require('path');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/main'],
+  entry: {
+    popup:  './src/popup/main',
+    content: './src/content/main',
+    background: './src/background/index'
+  },
   output: {
     path: __dirname + '/dist',
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   mode: 'development',
   context: __dirname,

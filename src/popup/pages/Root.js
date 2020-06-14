@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import Header from '../components/Header/Header';
 import BusinessList from '../components/BusinessList/BusinessList';
 import EthicsCard from '../components/EthicsCard/EthicsCard';
 import './root.module.css';
 
-export default class Root extends Component {
-  constructor() {
-    super();
+class Root extends Component {
+  constructor(props) {
+    super(props);
   }
   render() {
+    const { domContent } = this.props; 
     return (
       <div>
         <Header />
         <EthicsCard />
-        <BusinessList />
+        <BusinessList domContent={domContent} />
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    domContent: state.domContent
+  };
+};
+
+export default connect(mapStateToProps)(Root)

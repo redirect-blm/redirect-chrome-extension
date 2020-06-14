@@ -2,36 +2,31 @@ import React from 'react';
 import Axios from 'axios';
 import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
-import { Scraper } from '../../utils';
+import category from '../../../background/reducers/domContent';
 
 class BusinessList extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      lst: [],
-      error: null
-    }
+      businesses: [],
+      error: null,
+    };
+    this.lst = this.lst.bind(this);
   }
   componentDidMount() {
     const component = this;
-    //TODO: use Chrome api to get the document of the amazon window
-    const category = Scraper.category(window.document);
-    Axios({
-      method: 'get',
-      withCredentials: true,
-      baseUrl: 'https://redirect-blm.herokuapp.com/api/business/getmany/category',
-      params: {
-        category
-      }
-    }).then(({ data }) => {
-      component.setState({ lst: data })
-    }).catch(error => {
-      component.setState({ error });
-    })
+    Axios.get('https://redirect-blmherokuapp.com/api/businesses/getAll')
+    .then(({ data }) => {
+        component.setState({ businesses: data });
+      })
+      .catch(error => {
+        console.log(error)
+        component.setState({ error: `Error getting businesses: ${error}` });
+      });
   }
   lst() {
-    const { businesses, error } = this;
-    if (error) return <div>{error}</div>
+    const { businesses, error } = this.state;
+    if (error) return <div>{error}</div>;
     return businesses.length === 0 ? (
       <Spinner />
     ) : (
@@ -48,14 +43,17 @@ class BusinessList extends React.Component {
     );
   }
   render() {
-    const { lst } = this.state;
+    const { lst, props: { domContent } } = this;
+    console.log('domContent = ', domContent);
     return (
       <div className="text-center">
-        <h4>Black-Owned Alternatives</h4>
+        <h4>Black-Owned Alternatives for {domContent.category}</h4>
         {lst()}
       </div>
     );
   }
-};
+}
+
+
 
 export default BusinessList;
