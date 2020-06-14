@@ -18,8 +18,13 @@
     ],
     "persistent": false
   },
+  "content_scripts": [{
+      "matches": ["http://*.amazon.com/*"],
+      "css": [],
+      "js": ["content.js"]
+  }],
   "page_action": {
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_title": "Redirect Chrome Extension. Click to view CSR data for this brand.",
     "default_icon": {
       "16": "images/redirect_16x16.png",
