@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-const businessCard = props => {
+const BusinessCard = props => {
   return (
     <>
       <style type="text/css">
@@ -25,4 +25,4 @@ const businessCard = props => {
   );
 };
 
-export default businessCard;
+export default BusinessCard;

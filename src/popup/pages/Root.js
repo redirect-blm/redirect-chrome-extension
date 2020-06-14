@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Header from '../components/Header/Header';
 import BusinessList from '../components/BusinessList/BusinessList';
@@ -11,21 +11,21 @@ class Root extends Component {
     super(props);
   }
   render() {
-    const { domContent } = this.props; 
+    const { domContent } = this.props;
     return (
       <div>
         <Header />
-        <EthicsCard />
+        <EthicsCard domContent={domContent} />
         <BusinessList domContent={domContent} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     domContent: state.domContent
   };
 };
 
-export default connect(mapStateToProps)(Root)
+export default connect(mapStateToProps)(Root);
