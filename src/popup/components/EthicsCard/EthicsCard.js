@@ -23,7 +23,8 @@ class EthicsCard extends React.Component {
     )
       .then(({ data }) => {
         console.log('boycotted = ', data);
-        component.setState({ ethics: data[0] });
+        data = data[0] || {};
+        component.setState({ ethics: data });
       })
       .catch(error => {
         console.log(error);
@@ -33,6 +34,7 @@ class EthicsCard extends React.Component {
   tmp() {
     const { ethics, error } = this.state;
     if (error) return <div>{error}</div>;
+
     return !ethics.reason ? (
       <Spinner />
     ) : (
