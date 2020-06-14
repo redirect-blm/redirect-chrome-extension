@@ -1,29 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import Spinner from '../LoadSpinner/LoadSpinner';
 import Card from 'react-bootstrap/Card';
-// import Axios from 'axios';
+import Axios from 'axios';
 
-export default function EthicsCard() {
-  //   const [company, setCompany] = useState();
-  //   useEffect(() => {
-  //     Axios.get('API call').then(res => {
-  //       setCompany(res.data);
-  //     });
-  //   });
-
-  var temp = {
-    title: 'Amazon',
-    description: 'Overview of ethics statement.'
-  };
-
-  return (
-    <div className="text-center">
-      <h4>{temp.title}'s Ethics</h4>
+class EthicsCard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      ethics: {},
+      error: null
+    };
+    this.tmp = this.tmp.bind(this);
+  }
+  componentDidMount() {
+    const {
+      domContent: { brands }
+    } = this.props;
+    const component = this;
+    const searchBrand = brands ? encodeURIComponent(brands[0]) : 'Amazon';
+    Axios.get(
+      `https://redirect-blm.herokuapp.com/api/boycottList/getByName/${searchBrand}`
+    )
+      .then(({ data }) => {
+        console.log('boycotted = ', data);
+        component.setState({ ethics: data[0] });
+      })
+      .catch(error => {
+        console.log(error);
+        component.setState({ error: `Error getting businesses: ${error}` });
+      });
+  }
+  tmp() {
+    const { ethics, error } = this.state;
+    if (error) return <div>{error}</div>;
+    return !ethics.reason ? (
+      <Spinner />
+    ) : (
       <Card className="mt-3 mb-3">
         <Card.Body>
-          <Card.Title>{temp.title}</Card.Title>
-          <Card.Text>{temp.description}</Card.Text>
+          <Card.Title>{ethics.businessName}</Card.Title>
+          <Card.Text>{ethics.reason}</Card.Text>
         </Card.Body>
       </Card>
-    </div>
-  );
+    );
+  }
+  render() {
+    const { tmp } = this;
+    return (
+      <div className="text-center">
+        <h4 style={{ padding: '0 5px' }}>
+          Something to consider while you shop :)
+        </h4>
+        {tmp()}
+      </div>
+    );
+  }
 }
+export default EthicsCard;

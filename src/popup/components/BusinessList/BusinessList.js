@@ -9,20 +9,55 @@ class BusinessList extends React.Component {
     super();
     this.state = {
       businesses: [],
-      error: null,
+      error: null
     };
     this.lst = this.lst.bind(this);
+    this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
+    this.getAllBusinesses = this.getAllBusinesses.bind(this);
+    // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
   }
-  componentDidMount() {
+  getBusinessesByCategory() {
+    const {
+      domContent: { category }
+    } = this.props;
+    console.log('category = ', category);
     const component = this;
-    Axios.get('https://redirect-blmherokuapp.com/api/businesses/getAll')
-    .then(({ data }) => {
+    Axios.get(
+      `https://redirect-blm.herokuapp.com/api/businesses/getByCategory/${encodeURIComponent(
+        category
+      )}`
+    )
+      .then(({ data }) => {
         component.setState({ businesses: data });
       })
       .catch(error => {
-        console.log(error)
+        console.log('error = ', error);
         component.setState({ error: `Error getting businesses: ${error}` });
       });
+  }
+  getAllBusinesses() {
+    const component = this;
+    Axios.get('https://redirect-blm.herokuapp.com/api/businesses/getAll')
+      .then(({ data }) => {
+        component.setState({ businesses: data });
+      })
+      .catch(error => {
+        component.setState({ error: `Error getting businesses: ${error}` });
+      });
+  }
+  componentDidMount() {
+    const {
+      getAllBusinesses,
+      getBusinessesByCategory,
+      props: {
+        domContent: { category }
+      }
+    } = this;
+    if (category && category !== 'All') {
+      getBusinessesByCategory();
+    } else {
+      getAllBusinesses();
+    }
   }
   lst() {
     const { businesses, error } = this.state;
@@ -33,8 +68,8 @@ class BusinessList extends React.Component {
       businesses.map(child => {
         return (
           <BusinessCard
-            key={child.title}
-            title={child.title}
+            key={child.businessName}
+            title={child.businessName}
             description={child.description}
             site={child.website}
           />
@@ -43,17 +78,14 @@ class BusinessList extends React.Component {
     );
   }
   render() {
-    const { lst, props: { domContent } } = this;
-    console.log('domContent = ', domContent);
+    const { lst } = this;
     return (
       <div className="text-center">
-        <h4>Black-Owned Alternatives for {domContent.category}</h4>
+        <h4>Black-Owned Alternatives</h4>
         {lst()}
       </div>
     );
   }
 }
-
-
 
 export default BusinessList;
