@@ -1,15 +1,11 @@
+
 import React from 'react';
 import {render} from 'react-dom';
 import Root from './pages/Root';
-import { Store } from 'webext-redux';
 import { Provider } from 'react-redux';
+import store from './dev-store';
 
-const proxyStore = new Store();
-
-proxyStore.ready().then(() => {
-  render(
-     <Provider store={proxyStore}>
-       <Root />
-     </Provider>
-    ,document.getElementById('main'));
-});
+render(
+  <Provider store={store}>
+      <Root />
+  </Provider>,document.getElementById('main'));

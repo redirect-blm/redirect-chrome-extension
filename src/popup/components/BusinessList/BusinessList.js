@@ -14,18 +14,23 @@ class BusinessList extends React.Component {
     this.lst = this.lst.bind(this);
     this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
     this.getAllBusinesses = this.getAllBusinesses.bind(this);
+    this.getLinkPreviewKey = this.getLinkPreviewKey.bind(this);
+    console.log(props)
+    this.baseUrl = props.domContent.mode === 'development' ? `http://localhost:${props.domContent.port}/api` : 'https://redirect-blm.herokuapp.com/api'
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
   }
   getBusinessesByCategory() {
     const {
-      domContent: { category }
-    } = this.props;
+      props: {
+        domContent: { category }
+      }, baseUrl
+    } = this;
     console.log('category = ', category);
     const component = this;
     Axios.get(
-      `https://redirect-blm.herokuapp.com/api/businesses/getByCategory/${encodeURIComponent(
+      `${baseUrl}/businesses/getByCategory/${encodeURIComponent(
         category
-      )}`, { withCredentials: t }
+      )}`
     )
       .then(({ data }) => {
         component.setState({ businesses: data });
@@ -37,7 +42,7 @@ class BusinessList extends React.Component {
   }
   getAllBusinesses() {
     const component = this;
-    Axios.get('https://redirect-blm.herokuapp.com/api/businesses/getAll')
+    Axios.get(`${component.baseUrl}/businesses/getAll`)
       .then(({ data }) => {
         component.setState({ businesses: data });
       })
@@ -47,7 +52,7 @@ class BusinessList extends React.Component {
   }
   getLinkPreviewKey() {
     const component = this;
-    Axios.get('https://redirect-blm.herokuapp.com/api/keys/linkPreview')
+    Axios.get(`${component.baseUrl}/keys/linkPreview`)
       .then(({data}) => {
         component.setState({ linkPreviewKey: data });
         console.log('link preview key set to ', data);
