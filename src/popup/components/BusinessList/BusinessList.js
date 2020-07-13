@@ -2,7 +2,6 @@ import React from 'react';
 import Axios from 'axios';
 import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
-import category from '../../../background/reducers/domContent';
 
 class BusinessList extends React.Component {
   constructor(props) {
