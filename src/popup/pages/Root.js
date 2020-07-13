@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import Header from '../components/Header/Header';
 import BusinessList from '../components/BusinessList/BusinessList';
-import EthicsCard from '../components/EthicsCard/EthicsCard';
 import './root.module.css';
 
 class Root extends Component {
@@ -15,7 +14,6 @@ class Root extends Component {
     return (
       <div>
         <Header />
-        <EthicsCard domContent={domContent} />
         <BusinessList domContent={domContent} />
       </div>
     );

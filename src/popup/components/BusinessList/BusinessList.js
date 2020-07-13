@@ -9,6 +9,7 @@ class BusinessList extends React.Component {
     super();
     this.state = {
       businesses: [],
+      linkPreviewKey: null,
       error: null
     };
     this.lst = this.lst.bind(this);
@@ -25,7 +26,7 @@ class BusinessList extends React.Component {
     Axios.get(
       `https://redirect-blm.herokuapp.com/api/businesses/getByCategory/${encodeURIComponent(
         category
-      )}`
+      )}`, { withCredentials: t }
     )
       .then(({ data }) => {
         component.setState({ businesses: data });
@@ -45,10 +46,22 @@ class BusinessList extends React.Component {
         component.setState({ error: `Error getting businesses: ${error}` });
       });
   }
+  getLinkPreviewKey() {
+    const component = this;
+    Axios.get('https://redirect-blm.herokuapp.com/api/keys/linkPreview')
+      .then(({data}) => {
+        component.setState({ linkPreviewKey: data });
+        console.log('link preview key set to ', data);
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
   componentDidMount() {
     const {
       getAllBusinesses,
       getBusinessesByCategory,
+      getLinkPreviewKey,
       props: {
         domContent: { category }
       }
@@ -58,6 +71,7 @@ class BusinessList extends React.Component {
     } else {
       getAllBusinesses();
     }
+    getLinkPreviewKey();
   }
   lst() {
     const { businesses, error } = this.state;
