@@ -11,6 +11,6 @@ const middleware = [
 
 export default createStore(
     // static reducers for use in development
-  () => ({ domContent: { category: 'books', mode: 'development', port: 3001 }}),
+  () => ({ domContent: { category: 'Beauty & Personal Care', mode: 'development', port: 3001 }}),
   composeWithDevTools(applyMiddleware(...middleware))
 );

@@ -17,7 +17,7 @@ const BusinessCard = props => {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-          <BusinessList text="Go to Website" site={props.site}/>
+          <BusinessLink text="Go to Website" site={props.site}/>
         </Card.Body>
       </Card>
     </>

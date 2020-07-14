@@ -34930,7 +34930,7 @@ var BusinessCard = function BusinessCard(props) {
     type: "text/css"
   }, "\n          .btn-redirect {\n            background-color: #2eca7f;\n          }\n        "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"], {
     className: "mx-auto"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Title, null, props.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Text, null, props.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BusinessList_BusinessList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Title, null, props.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap_Card__WEBPACK_IMPORTED_MODULE_1__["default"].Text, null, props.description), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BusinessCard_BusinessLink__WEBPACK_IMPORTED_MODULE_2__["default"], {
     text: "Go to Website",
     site: props.site
   }))));
@@ -35019,7 +35019,7 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(BusinessList);
 
-  function BusinessList(props) {
+  function BusinessList() {
     var _this;
 
     _classCallCheck(this, BusinessList);
@@ -35034,26 +35034,31 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
     _this.getBusinessesByCategory = _this.getBusinessesByCategory.bind(_assertThisInitialized(_this));
     _this.getAllBusinesses = _this.getAllBusinesses.bind(_assertThisInitialized(_this));
     _this.getLinkPreviewKey = _this.getLinkPreviewKey.bind(_assertThisInitialized(_this));
-    console.log(props);
-    _this.baseUrl = props.domContent.mode === 'development' ? "http://localhost:".concat(props.domContent.port, "/api") : 'https://redirect-blm.herokuapp.com/api'; // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
+    _this.baseUrl = _this.baseUrl.bind(_assertThisInitialized(_this)); // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
 
     return _this;
   }
 
   _createClass(BusinessList, [{
+    key: "baseUrl",
+    value: function baseUrl() {
+      var _this$props$domConten = this.props.domContent,
+          mode = _this$props$domConten.mode,
+          port = _this$props$domConten.port;
+      return mode === "development" ? "http://localhost:".concat(port, "/api") : 'https://redirect-blm.herokuapp.com/api';
+    }
+  }, {
     key: "getBusinessesByCategory",
     value: function getBusinessesByCategory() {
       var category = this.props.domContent.category,
           baseUrl = this.baseUrl;
-      console.log('category = ', category);
       var component = this;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(baseUrl, "/businesses/getByCategory/").concat(encodeURIComponent(category))).then(function (_ref) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(baseUrl(), "/businesses/getByCategory/").concat(encodeURIComponent(category))).then(function (_ref) {
         var data = _ref.data;
         component.setState({
           businesses: data
         });
       })["catch"](function (error) {
-        console.log('error = ', error);
         component.setState({
           error: "Error getting businesses: ".concat(error)
         });
@@ -35063,7 +35068,7 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
     key: "getAllBusinesses",
     value: function getAllBusinesses() {
       var component = this;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(component.baseUrl, "/businesses/getAll")).then(function (_ref2) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(component.baseUrl(), "/businesses/getAll")).then(function (_ref2) {
         var data = _ref2.data;
         component.setState({
           businesses: data
@@ -35078,12 +35083,11 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
     key: "getLinkPreviewKey",
     value: function getLinkPreviewKey() {
       var component = this;
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(component.baseUrl, "/keys/linkPreview")).then(function (_ref3) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(component.baseUrl(), "/keys/linkPreview")).then(function (_ref3) {
         var data = _ref3.data;
         component.setState({
           linkPreviewKey: data
         });
-        console.log('link preview key set to ', data);
       })["catch"](function (e) {
         console.log(e);
       });
@@ -35231,7 +35235,7 @@ var middleware = [redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"].withExtraA
 function () {
   return {
     domContent: {
-      category: 'books',
+      category: 'Beauty & Personal Care',
       mode: 'development',
       port: 3001
     }

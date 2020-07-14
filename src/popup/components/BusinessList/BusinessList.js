@@ -4,7 +4,7 @@ import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
 
 class BusinessList extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       businesses: [],
@@ -15,9 +15,12 @@ class BusinessList extends React.Component {
     this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
     this.getAllBusinesses = this.getAllBusinesses.bind(this);
     this.getLinkPreviewKey = this.getLinkPreviewKey.bind(this);
-    console.log(props)
-    this.baseUrl = props.domContent.mode === 'development' ? `http://localhost:${props.domContent.port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    this.baseUrl = this.baseUrl.bind(this);
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
+  }
+  baseUrl() {
+    const { mode, port } = this.props.domContent;
+    return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
     const {
@@ -25,10 +28,9 @@ class BusinessList extends React.Component {
         domContent: { category }
       }, baseUrl
     } = this;
-    console.log('category = ', category);
     const component = this;
     Axios.get(
-      `${baseUrl}/businesses/getByCategory/${encodeURIComponent(
+      `${baseUrl()}/businesses/getByCategory/${encodeURIComponent(
         category
       )}`
     )
@@ -36,13 +38,12 @@ class BusinessList extends React.Component {
         component.setState({ businesses: data });
       })
       .catch(error => {
-        console.log('error = ', error);
         component.setState({ error: `Error getting businesses: ${error}` });
       });
   }
   getAllBusinesses() {
     const component = this;
-    Axios.get(`${component.baseUrl}/businesses/getAll`)
+    Axios.get(`${component.baseUrl()}/businesses/getAll`)
       .then(({ data }) => {
         component.setState({ businesses: data });
       })
@@ -52,10 +53,9 @@ class BusinessList extends React.Component {
   }
   getLinkPreviewKey() {
     const component = this;
-    Axios.get(`${component.baseUrl}/keys/linkPreview`)
+    Axios.get(`${component.baseUrl()}/keys/linkPreview`)
       .then(({data}) => {
         component.setState({ linkPreviewKey: data });
-        console.log('link preview key set to ', data);
       })
       .catch(e => {
         console.log(e);
