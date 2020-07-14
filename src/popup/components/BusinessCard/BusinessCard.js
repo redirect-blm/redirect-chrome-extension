@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import BusinessLink from '../BusinessCard/BusinessLink';
+import BusinessList from '../BusinessList/BusinessList';
 
 const BusinessCard = props => {
   return (
@@ -16,9 +17,7 @@ const BusinessCard = props => {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-          <Button variant="redirect" onClick={() => window.open(props.site)}>
-            Go to website
-          </Button>
+          <BusinessLink text="Go to Website" site={props.site}/>
         </Card.Body>
       </Card>
     </>

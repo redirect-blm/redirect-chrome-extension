@@ -2,28 +2,35 @@ import React from 'react';
 import Axios from 'axios';
 import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
-import category from '../../../background/reducers/domContent';
 
 class BusinessList extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       businesses: [],
+      linkPreviewKey: null,
       error: null
     };
     this.lst = this.lst.bind(this);
     this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
     this.getAllBusinesses = this.getAllBusinesses.bind(this);
+    this.getLinkPreviewKey = this.getLinkPreviewKey.bind(this);
+    this.baseUrl = this.baseUrl.bind(this);
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
+  }
+  baseUrl() {
+    const { mode, port } = this.props.domContent;
+    return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
     const {
-      domContent: { category }
-    } = this.props;
-    console.log('category = ', category);
+      props: {
+        domContent: { category }
+      }, baseUrl
+    } = this;
     const component = this;
     Axios.get(
-      `https://redirect-blm.herokuapp.com/api/businesses/getByCategory/${encodeURIComponent(
+      `${baseUrl()}/businesses/getByCategory/${encodeURIComponent(
         category
       )}`
     )
@@ -31,13 +38,12 @@ class BusinessList extends React.Component {
         component.setState({ businesses: data });
       })
       .catch(error => {
-        console.log('error = ', error);
         component.setState({ error: `Error getting businesses: ${error}` });
       });
   }
   getAllBusinesses() {
     const component = this;
-    Axios.get('https://redirect-blm.herokuapp.com/api/businesses/getAll')
+    Axios.get(`${component.baseUrl()}/businesses/getAll`)
       .then(({ data }) => {
         component.setState({ businesses: data });
       })
@@ -45,10 +51,21 @@ class BusinessList extends React.Component {
         component.setState({ error: `Error getting businesses: ${error}` });
       });
   }
+  getLinkPreviewKey() {
+    const component = this;
+    Axios.get(`${component.baseUrl()}/keys/linkPreview`)
+      .then(({data}) => {
+        component.setState({ linkPreviewKey: data });
+      })
+      .catch(e => {
+        console.log(e);
+      })
+  }
   componentDidMount() {
     const {
       getAllBusinesses,
       getBusinessesByCategory,
+      getLinkPreviewKey,
       props: {
         domContent: { category }
       }
@@ -58,6 +75,7 @@ class BusinessList extends React.Component {
     } else {
       getAllBusinesses();
     }
+    getLinkPreviewKey();
   }
   lst() {
     const { businesses, error } = this.state;
