@@ -16,12 +16,12 @@ const BusinessCard = props => {
         `}
       </style>
       <Card className="mx-auto">
-        <Card.Body>
+        <Card.Body
+          onMouseEnter={() => setIsShown(true)}
+          onMouseLeave={() => setIsShown(false)}
+        >
           <Card.Title>{props.title}</Card.Title>
-          <Card.Text
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-          >
+          <Card.Text>
             {(isShown || props.description.length<=previewLength)? props.description : props.description.substring(0,previewLength) + "..."}
           </Card.Text>
           <BusinessLink text="Go to Website" site={props.site}/>
