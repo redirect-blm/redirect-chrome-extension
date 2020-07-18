@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import BusinessLink from '../BusinessCard/BusinessLink';
 import BusinessList from '../BusinessList/BusinessList';
 
 const BusinessCard = props => {
+  const previewLength = 140;
+  const [isShown, setIsShown] = useState(false);
   return (
     <>
       <style type="text/css">
@@ -16,7 +18,12 @@ const BusinessCard = props => {
       <Card className="mx-auto">
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
-          <Card.Text>{props.description}</Card.Text>
+          <Card.Text
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
+          >
+            {(isShown || props.description.length<=previewLength)? props.description : props.description.substring(0,previewLength) + "..."}
+          </Card.Text>
           <BusinessLink text="Go to Website" site={props.site}/>
         </Card.Body>
       </Card>
