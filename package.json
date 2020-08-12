@@ -10,8 +10,8 @@
     "build-extension": "./node_modules/.bin/gulp",
     "lint": "eslint ./src",
     "lint-fix": "prettier \"{src}/**/*.js\"",
-    "compress-windows": "tar -cvzf extension.zip extension",
-    "compress-mac": "zip -r extension.zip extension",
+    "compress-windows": "tar -cvzf extension.zip dist",
+    "compress-mac": "zip -r extension.zip dist",
     "start-dev": "npm-run-all --parallel start-server build-watch",
     "start-dev-mac": "NODE_ENV=development && npm run start-dev",
     "start-dev-mc": "SET NODE_ENV=development && SET PLATFORM=windows && npm run start-dev"

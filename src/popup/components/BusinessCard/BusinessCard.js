@@ -1,9 +1,9 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import BusinessLink from '../BusinessCard/BusinessLink';
-import BusinessList from '../BusinessList/BusinessList';
 
 const BusinessCard = props => {
+  let showPreview = false
   return (
     <>
       <style type="text/css">
@@ -17,7 +17,7 @@ const BusinessCard = props => {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>{props.description}</Card.Text>
-          <BusinessLink text="Go to Website" site={props.site}/>
+          <BusinessLink text="Go to Website" site={props.site} showPreview={showPreview} baseUrl={props.baseUrl} />
         </Card.Body>
       </Card>
     </>

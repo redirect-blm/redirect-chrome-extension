@@ -19,7 +19,7 @@ class EthicsCard extends React.Component {
     const component = this;
     const searchBrand = brands ? encodeURIComponent(brands[0]) : 'Amazon';
     Axios.get(
-      `https://redirect-blm.herokuapp.com/api/boycottList/getByName/${searchBrand}`
+      `http://redirect-blm.herokuapp.com/api/boycottList/getByName/${searchBrand}`
     )
       .then(({ data }) => {
         console.log('boycotted = ', data);

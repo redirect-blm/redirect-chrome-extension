@@ -20,7 +20,7 @@ class BusinessList extends React.Component {
   }
   baseUrl() {
     const { mode, port } = this.props.domContent;
-    return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    return mode === `development` ?  `http://localhost:${port}/api` : 'http://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
     const {
@@ -78,7 +78,7 @@ class BusinessList extends React.Component {
     getLinkPreviewKey();
   }
   lst() {
-    const { businesses, error } = this.state;
+    const { state: { businesses, error }, baseUrl } = this;
     if (error) return <div>{error}</div>;
     return businesses.length === 0 ? (
       <Spinner />
@@ -90,6 +90,7 @@ class BusinessList extends React.Component {
             title={child.businessName}
             description={child.description}
             site={child.website}
+            baseUrl={baseUrl()}
           />
         );
       })
