@@ -4,12 +4,14 @@ import Spinner from '../LoadSpinner/LoadSpinner';
 import BusinessCard from '../BusinessCard/BusinessCard';
 
 class BusinessList extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       businesses: [],
       linkPreviewKey: null,
-      error: null
+      error: null,
+      category: props.domContent.category,
+      dataReady: false
     };
     this.lst = this.lst.bind(this);
     this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
@@ -19,7 +21,7 @@ class BusinessList extends React.Component {
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
   }
   baseUrl() {
-    const { mode, port } = this.props.domContent;
+    const { config: { mode, port } } = this.props;
     return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
@@ -35,7 +37,7 @@ class BusinessList extends React.Component {
       )}`
     )
       .then(({ data }) => {
-        component.setState({ businesses: data });
+        component.setState({ businesses: data, dataReady: true });
       })
       .catch(error => {
         component.setState({ error: `Error getting businesses: ${error}` });
@@ -45,7 +47,7 @@ class BusinessList extends React.Component {
     const component = this;
     Axios.get(`${component.baseUrl()}/businesses/getAll`)
       .then(({ data }) => {
-        component.setState({ businesses: data });
+        component.setState({ businesses: data, dataReady: true });
       })
       .catch(error => {
         component.setState({ error: `Error getting businesses: ${error}` });
@@ -55,7 +57,7 @@ class BusinessList extends React.Component {
     const component = this;
     Axios.get(`${component.baseUrl()}/keys/linkPreview`)
       .then(({data}) => {
-        component.setState({ linkPreviewKey: data });
+        component.setState({ linkPreviewKey: data, dataReady: true });
       })
       .catch(e => {
         console.log(e);
@@ -66,10 +68,9 @@ class BusinessList extends React.Component {
       getAllBusinesses,
       getBusinessesByCategory,
       getLinkPreviewKey,
-      props: {
-        domContent: { category }
-      }
+      state: { category }
     } = this;
+    console.log(`business list mounting in ${this.props.config.mode} mode with category = ${category}`)
     if (category && category !== 'All') {
       getBusinessesByCategory();
     } else {
@@ -77,13 +78,28 @@ class BusinessList extends React.Component {
     }
     getLinkPreviewKey();
   }
+  // TODO: Figure out why state doesn't update when props change
+  componentDidUpdate(prevProps, state) {
+    if (prevProps.domContent.category !== this.props.domContent.category) {
+      this.setState({ category: this.props.domContent.category})
+      if (this.state.category && this.state.category !== 'All') {
+        this.getBusinessesByCategory();
+      } else {
+        this.getAllBusinesses();
+      }
+      this.getLinkPreviewKey();
+    }
+  }
   lst() {
-    const { businesses, error } = this.state;
+    const { businesses, error, dataReady } = this.state;
     if (error) return <div>{error}</div>;
-    return businesses.length === 0 ? (
+    return !dataReady ? (
       <Spinner />
     ) : (
-      businesses.map(child => {
+      businesses.length === 0 ?
+        <div>No Data For This Category :(</div>
+        :
+        businesses.map(child => {
         return (
           <BusinessCard
             key={child.businessName}
