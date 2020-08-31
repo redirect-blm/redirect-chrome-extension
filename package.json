@@ -13,7 +13,7 @@
     "compress-windows": "tar -cvzf extension.zip extension",
     "compress-mac": "zip -r extension.zip extension",
     "start-dev": "npm-run-all --parallel start-server build-watch",
-    "start": "node ./server/index.js",
+    "start": "NODE_ENV=development node ./server/index.js",
     "start-dev-mac": "NODE_ENV=development && npm run start-dev",
     "start-dev-mc": "SET NODE_ENV=development && SET PLATFORM=windows && npm run start-dev"
   },

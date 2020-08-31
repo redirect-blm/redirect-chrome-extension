@@ -1,8 +1,5 @@
-export default (state = { mode: 'development', port: 3001 }, action) => {
-    // TODO: Add loggin middleware to replace console logs
-    // Currently these logs can be viewed at chrome://extensions in developer mode
-    console.log('action type = ', action.type)
-    console.log('action data = ', action.data)
+export default (state = { mode: 'production', port: 3001 }, action) => {
+    // Set mode to development if you want to host the API layer on a local server
     switch (action.type) {
       case 'SEND_CONFIG':
         return action.data;
