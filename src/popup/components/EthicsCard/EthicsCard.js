@@ -22,12 +22,10 @@ class EthicsCard extends React.Component {
       `https://redirect-blm.herokuapp.com/api/boycottList/getByName/${searchBrand}`
     )
       .then(({ data }) => {
-        console.log('boycotted = ', data);
         data = data[0] || {};
         component.setState({ ethics: data });
       })
       .catch(error => {
-        console.log(error);
         component.setState({ error: `Error getting businesses: ${error}` });
       });
   }

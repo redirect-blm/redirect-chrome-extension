@@ -35070,10 +35070,10 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
   _createClass(BusinessList, [{
     key: "baseUrl",
     value: function baseUrl() {
-      var _this$props$config = this.props.config,
-          mode = _this$props$config.mode,
-          port = _this$props$config.port;
-      return mode === "development" ? "http://localhost:".concat(port, "/api") : 'https://redirect-blm.herokuapp.com/api';
+      // const { config: { mode, port } } = this.props;
+      // console.log(`APIs runing in ${mode} mode`)
+      // return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+      return 'https://redirect-blm.herokuapp.com/api';
     }
   }, {
     key: "getBusinessesByCategory",
@@ -35511,15 +35511,12 @@ module.exports = content.locals || {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    mode: 'development',
+    mode: 'production',
     port: 3001
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  // TODO: Add loggin middleware to replace console logs
-  // Currently these logs can be viewed at chrome://extensions in developer mode
-  console.log('action type = ', action.type);
-  console.log('action data = ', action.data);
 
+  // Set mode to development if you want to host the API layer on a local server
   switch (action.type) {
     case 'SEND_CONFIG':
       return action.data;
@@ -35551,10 +35548,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     category: 'Clothing, Shoes & Jewelery'
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  // TODO: Add loggin middleware to replace console logs
-  // Currently these logs can be viewed at chrome://extensions in developer mode
-  console.log('action type = ', action.type);
-  console.log('action data = ', action.data);
 
   switch (action.type) {
     case 'SEND_DOM_CONTENT':

@@ -24,6 +24,7 @@ class BusinessList extends React.Component {
     // const { config: { mode, port } } = this.props;
     // console.log(`APIs runing in ${mode} mode`)
     // return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    console.log('HELLO????')
     return 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
