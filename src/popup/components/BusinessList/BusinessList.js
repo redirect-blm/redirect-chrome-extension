@@ -21,8 +21,10 @@ class BusinessList extends React.Component {
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
   }
   baseUrl() {
-    const { config: { mode, port } } = this.props;
-    return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    // const { config: { mode, port } } = this.props;
+    // console.log(`APIs runing in ${mode} mode`)
+    // return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    return 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
     const {
