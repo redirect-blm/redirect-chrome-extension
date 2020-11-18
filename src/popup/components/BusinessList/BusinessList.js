@@ -16,23 +16,25 @@ class BusinessList extends React.Component {
     this.getAllBusinesses = this.getAllBusinesses.bind(this);
     this.getLinkPreviewKey = this.getLinkPreviewKey.bind(this);
     this.baseUrl = this.baseUrl.bind(this);
+    this.header = this.header.bind(this);
     // this.getBoycottedBusinesses = this.getBoycottedBusinesses.bind(this);
   }
   baseUrl() {
     const { mode, port } = this.props.domContent;
-    return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
+    return mode === `development`
+      ? `http://localhost:${port}/api`
+      : 'https://redirect-blm.herokuapp.com/api';
   }
   getBusinessesByCategory() {
     const {
       props: {
         domContent: { category }
-      }, baseUrl
+      },
+      baseUrl
     } = this;
     const component = this;
     Axios.get(
-      `${baseUrl()}/businesses/getByCategory/${encodeURIComponent(
-        category
-      )}`
+      `${baseUrl()}/businesses/getByCategory/${encodeURIComponent(category)}`
     )
       .then(({ data }) => {
         component.setState({ businesses: data });
@@ -54,12 +56,12 @@ class BusinessList extends React.Component {
   getLinkPreviewKey() {
     const component = this;
     Axios.get(`${component.baseUrl()}/keys/linkPreview`)
-      .then(({data}) => {
+      .then(({ data }) => {
         component.setState({ linkPreviewKey: data });
       })
       .catch(e => {
         console.log(e);
-      })
+      });
   }
   componentDidMount() {
     const {
@@ -76,6 +78,10 @@ class BusinessList extends React.Component {
       getAllBusinesses();
     }
     getLinkPreviewKey();
+  }
+  header() {
+    return `Black-Owned Alternatives in category: '${this.props.domContent
+      .category || 'All'}'`;
   }
   lst() {
     const { businesses, error } = this.state;
@@ -96,10 +102,10 @@ class BusinessList extends React.Component {
     );
   }
   render() {
-    const { lst } = this;
+    const { lst, header } = this;
     return (
       <div className="text-center">
-        <h4>Black-Owned Alternatives</h4>
+        <h4>{header()}</h4>
         {lst()}
       </div>
     );
