@@ -7,16 +7,18 @@ class Dom extends Component {
   }
   render() {
     const { domContent, sendDOM } = this.props;
+    console.log(domContent)
     return (
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
         <h1>AMAZON.COM</h1>
+        <h2>Category</h2>
         <select
           value={domContent.category}
           onChange={e => sendDOM({
               type: 'SEND_DOM_CONTENT',
               data: { category: e.target.value }})}
         >
-            <option value='Clothing, Shoes & Jewelery'>Clothing, Shoes &nbsp; Jewelery</option>
+            <option value='Clothing, Shoes & Jewelry'>Clothing, Shoes &nbsp; Jewelery</option>
             <option value="Books">Books</option>
             <option value="Appliances">Appliances</option>
             <option value="Apps & Games">Apps &nbsp; Games</option>
@@ -33,6 +35,17 @@ class Dom extends Component {
             <option value="Pet Supplies">Pet Supplies</option>
             <option value="Luggage & Travel Gear">Luggage &nbsp; Travel Gear</option>
             <option value="Musical Insturments">Musical Insturments</option>
+        </select>
+        <h2>Product</h2>
+        <select
+          value={domContent.searchTerm}
+          onChange={e => sendDOM({
+              type: 'SEND_DOM_CONTENT',
+              data: { searchTerm: e.target.value }})}
+        >
+            <option value='wig'>wig</option>
+            <option value='lipstick'>lipstick</option>
+            <option value='lipstick'>hand bag</option>
         </select>
       </div>
     );

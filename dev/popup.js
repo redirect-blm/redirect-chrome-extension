@@ -35056,6 +35056,7 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
       linkPreviewKey: null,
       error: null,
       category: props.domContent.category,
+      searchTerm: props.domContent.searchTerm,
       dataReady: false
     };
     _this.lst = _this.lst.bind(_assertThisInitialized(_this));
@@ -35128,11 +35129,16 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
     value: function componentDidMount() {
       var getAllBusinesses = this.getAllBusinesses,
           getBusinessesByCategory = this.getBusinessesByCategory,
+          getBusinessesBySearchTerm = this.getBusinessesBySearchTerm,
           getLinkPreviewKey = this.getLinkPreviewKey,
-          category = this.state.category;
-      console.log("business list mounting in ".concat(this.props.config.mode, " mode with category = ").concat(category));
+          _this$state = this.state,
+          category = _this$state.category,
+          searchTerm = _this$state.searchTerm;
+      console.log("business list mounting in ".concat(this.props.config.mode, " mode with category = ").concat(category, ". search term = ").concat(searchTerm));
 
-      if (category && category !== 'All') {
+      if (searchTerm) {
+        getBusinessesBySearchTerm();
+      } else if (category && category !== 'All') {
         getBusinessesByCategory();
       } else {
         getAllBusinesses();
@@ -35161,10 +35167,10 @@ var BusinessList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "lst",
     value: function lst() {
-      var _this$state = this.state,
-          businesses = _this$state.businesses,
-          error = _this$state.error,
-          dataReady = _this$state.dataReady;
+      var _this$state2 = this.state,
+          businesses = _this$state2.businesses,
+          error = _this$state2.error,
+          dataReady = _this$state2.dataReady;
       if (error) return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, error);
       return !dataReady ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LoadSpinner_LoadSpinner__WEBPACK_IMPORTED_MODULE_2__["default"], null) : businesses.length === 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "No Data For This Category :(") : businesses.map(function (child) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_BusinessCard_BusinessCard__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -35309,7 +35315,13 @@ var Dom = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           domContent = _this$props.domContent,
           sendDOM = _this$props.sendDOM;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "AMAZON.COM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+      console.log(domContent);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: {
+          display: 'flex',
+          flexDirection: 'column'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "AMAZON.COM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
         value: domContent.category,
         onChange: function onChange(e) {
           return sendDOM({
@@ -35353,7 +35365,23 @@ var Dom = /*#__PURE__*/function (_Component) {
         value: "Luggage & Travel Gear"
       }, "Luggage \xA0 Travel Gear"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
         value: "Musical Insturments"
-      }, "Musical Insturments")));
+      }, "Musical Insturments")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Product"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+        value: domContent.searchTerm,
+        onChange: function onChange(e) {
+          return sendDOM({
+            type: 'SEND_DOM_CONTENT',
+            data: {
+              searchTerm: e.target.value
+            }
+          });
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "wig"
+      }, "wig"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "lipstick"
+      }, "lipstick"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+        value: "lipstick"
+      }, "hand bag")));
     }
   }]);
 
@@ -35545,14 +35573,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    category: 'Clothing, Shoes & Jewelery'
+    category: 'Clothing, Shoes & Jewelery',
+    searchTerm: 'lipstick'
   };
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
     case 'SEND_DOM_CONTENT':
       return _objectSpread(_objectSpread({}, state), {}, {
-        category: action.data.category
+        category: action.data.category,
+        searchTerm: action.data.searchTerm
       });
 
     default:

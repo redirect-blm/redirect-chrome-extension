@@ -11,6 +11,7 @@ class BusinessList extends React.Component {
       linkPreviewKey: null,
       error: null,
       category: props.domContent.category,
+      searchTerm: props.domContent.searchTerm,
       dataReady: false
     };
     this.lst = this.lst.bind(this);
@@ -24,7 +25,6 @@ class BusinessList extends React.Component {
     // const { config: { mode, port } } = this.props;
     // console.log(`APIs runing in ${mode} mode`)
     // return mode === `development` ?  `http://localhost:${port}/api` : 'https://redirect-blm.herokuapp.com/api'
-    console.log('HELLO????')
     return 'https://redirect-blm.herokuapp.com/api'
   }
   getBusinessesByCategory() {
@@ -70,11 +70,15 @@ class BusinessList extends React.Component {
     const {
       getAllBusinesses,
       getBusinessesByCategory,
+      getBusinessesBySearchTerm,
       getLinkPreviewKey,
-      state: { category }
+      state: { category, searchTerm }
     } = this;
-    console.log(`business list mounting in ${this.props.config.mode} mode with category = ${category}`)
-    if (category && category !== 'All') {
+    console.log(`business list mounting in ${this.props.config.mode} mode with category = ${category}. search term = ${searchTerm}`)
+    if (searchTerm) {
+      getBusinessesBySearchTerm();
+    }
+    else if (category && category !== 'All') {
       getBusinessesByCategory();
     } else {
       getAllBusinesses();
