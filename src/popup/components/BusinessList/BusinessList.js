@@ -9,7 +9,8 @@ class BusinessList extends React.Component {
     this.state = {
       businesses: [],
       linkPreviewKey: null,
-      error: null
+      error: null,
+      dataLoaded: false
     };
     this.lst = this.lst.bind(this);
     this.getBusinessesByCategory = this.getBusinessesByCategory.bind(this);
@@ -37,20 +38,26 @@ class BusinessList extends React.Component {
       `${baseUrl()}/businesses/getByCategory/${encodeURIComponent(category)}`
     )
       .then(({ data }) => {
-        component.setState({ businesses: data });
+        component.setState({ businesses: data, dataLoaded: true });
       })
       .catch(error => {
-        component.setState({ error: `Error getting businesses: ${error}` });
+        component.setState({
+          error: `Error getting businesses: ${error}`,
+          dataLoaded: true
+        });
       });
   }
   getAllBusinesses() {
     const component = this;
     Axios.get(`${component.baseUrl()}/businesses/getAll`)
       .then(({ data }) => {
-        component.setState({ businesses: data });
+        component.setState({ businesses: data, dataLoaded: true });
       })
       .catch(error => {
-        component.setState({ error: `Error getting businesses: ${error}` });
+        component.setState({
+          error: `Error getting businesses: ${error}`,
+          dataLoaded: true
+        });
       });
   }
   getLinkPreviewKey() {
@@ -84,12 +91,14 @@ class BusinessList extends React.Component {
       .category || 'All'}'`;
   }
   lst() {
-    const { businesses, error } = this.state;
+    const { businesses, error, dataLoaded } = this.state;
     if (error) return <div>{error}</div>;
-    return businesses.length === 0 ? (
-      <Spinner />
-    ) : (
-      businesses.map(child => {
+    if (dataLoaded === false) {
+      return <Spinner />;
+    } else if (businesses.length === 0) {
+      return <div>Sorry. We don't have any businesses in this category :(</div>;
+    } else {
+      return businesses.map(child => {
         return (
           <BusinessCard
             key={child.businessName}
@@ -98,8 +107,8 @@ class BusinessList extends React.Component {
             site={child.website}
           />
         );
-      })
-    );
+      });
+    }
   }
   render() {
     const { lst, header } = this;
